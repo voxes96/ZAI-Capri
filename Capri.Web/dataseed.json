@@ -1,0 +1,691 @@
+{
+  "DeanEmployees": [
+    {
+      "Email": "dean1@gmail.com",
+      "PasswordHash": "zaq1@WSX"
+    },
+    {
+      "Email": "dean2@gmail.com",
+      "PasswordHash": "zaq1@WSX"
+    },
+    {
+      "Email": "dean3@gmail.com",
+      "PasswordHash": "zaq1@WSX"
+    },
+    {
+      "Email": "dean4@gmail.com",
+      "PasswordHash": "zaq1@WSX"
+    },
+    {
+      "Email": "dean5@gmail.com",
+      "PasswordHash": "zaq1@WSX"
+    }
+  ],
+  "Students": [
+    {
+      "Id": 1,
+      "IndexNumber": 132201,
+      "FirstName": "Filip",
+      "LastName": "Cegielski",
+      "Semester": 6,
+      "StudyLevel": 0,
+      "StudyMode": 0,
+      "ApplicationUser": {
+        "Email": "student1@gmail.com",
+        "PasswordHash": "zaq1@WSX"
+      }
+    },
+    {
+      "Id": 2,
+      "IndexNumber": 132202,
+      "FirstName": "Marcin",
+      "LastName": "Zawadzki",
+      "Semester": 6,
+      "StudyLevel": 0,
+      "StudyMode": 0,
+      "ApplicationUser": {
+        "Email": "student2@gmail.com",
+        "PasswordHash": "zaq1@WSX"
+      }
+    },
+    {
+      "Id": 3,
+      "IndexNumber": 132203,
+      "FirstName": "Szymon",
+      "LastName": "Wójcik",
+      "Semester": 6,
+      "StudyLevel": 0,
+      "StudyMode": 0,
+      "ApplicationUser": {
+        "Email": "student3@gmail.com",
+        "PasswordHash": "zaq1@WSX"
+      }
+    },
+    {
+      "Id": 4,
+      "IndexNumber": 132204,
+      "FirstName": "Andrzej",
+      "LastName": "Król",
+      "Semester": 6,
+      "StudyLevel": 0,
+      "StudyMode": 0,
+      "ApplicationUser": {
+        "Email": "student4@gmail.com",
+        "PasswordHash": "zaq1@WSX"
+      }
+    },
+    {
+      "Id": 5,
+      "IndexNumber": 132205,
+      "FirstName": "Jan",
+      "LastName": "Nowak",
+      "Semester": 6,
+      "StudyLevel": 0,
+      "StudyMode": 0,
+      "ApplicationUser": {
+        "Email": "student5@gmail.com",
+        "PasswordHash": "zaq1@WSX"
+      }
+    }
+  ],
+  "Institutes": [
+    {
+      "Id": 1,
+      "Name": "Instytut Informatyki",
+      "Promoters": [
+        {
+          "Id": 11,
+          "FirstName": "Irmina",
+          "LastName": "Masłowska",
+          "TitlePrefix": "dr inż.",
+          "TitlePostfix": "",
+          "ExpectedNumberOfBachelorProposals": 2,
+          "ExpectedNumberOfMasterProposals": 1,
+          "ApplicationUser": {
+            "Email": "irmina.maslowska@put.poznan.pl",
+            "PasswordHash": "zaq1@WSX"
+          }
+        },
+        {
+          "Id": 12,
+          "FirstName": "Bartłomiej",
+          "LastName": "Prędki",
+          "TitlePrefix": "dr inż.",
+          "TitlePostfix": "",
+          "ExpectedNumberOfBachelorProposals": 2,
+          "ExpectedNumberOfMasterProposals": 1,
+          "ApplicationUser": {
+            "Email": "bartlomiej.predki@put.poznan.pl",
+            "PasswordHash": "zaq1@WSX"
+          }
+        },
+        {
+          "Id": 13,
+          "FirstName": "Miłosz",
+          "LastName": "Kadziński",
+          "TitlePrefix": "dr hab. inż.",
+          "TitlePostfix": "",
+          "ExpectedNumberOfBachelorProposals": 2,
+          "ExpectedNumberOfMasterProposals": 1,
+          "ApplicationUser": {
+            "Email": "milosz.kadzinski@put.poznan.pl",
+            "PasswordHash": "zaq1@WSX"
+          }
+        },
+        {
+          "Id": 14,
+          "FirstName": "Wojciech",
+          "LastName": "Kotłowski",
+          "TitlePrefix": "dr hab. inż.",
+          "TitlePostfix": "",
+          "ExpectedNumberOfBachelorProposals": 2,
+          "ExpectedNumberOfMasterProposals": 1,
+          "ApplicationUser": {
+            "Email": "wojciech.kotlowski@put.poznan.pl",
+            "PasswordHash": "zaq1@WSX"
+          }
+        },
+        {
+          "Id": 15,
+          "FirstName": "Jerzy",
+          "LastName": "Nawrocki",
+          "TitlePrefix": "dr hab inż.",
+          "TitlePostfix": "prof. PP",
+          "ExpectedNumberOfBachelorProposals": 2,
+          "ExpectedNumberOfMasterProposals": 1,
+          "ApplicationUser": {
+            "Email": "jerzy.nawrocki@put.poznan.pl",
+            "PasswordHash": "zaq1@WSX"
+          }
+        },
+        {
+          "Id": 1,
+          "FirstName": "PromoterN1",
+          "LastName": "PromoterS1",
+          "TitlePrefix": "dr inż.",
+          "TitlePostfix": "",
+          "ExpectedNumberOfBachelorProposals": 10000,
+          "ExpectedNumberOfMasterProposals": 10000,
+          "ApplicationUser": {
+            "Email": "promoter1@gmail.com",
+            "PasswordHash": "zaq1@WSX"
+          }
+        }
+      ]
+    },
+    {
+      "Id": 2,
+      "Name": "Instytut Technologii Mechanicznej",
+      "Promoters": [
+        {
+          "Id": 2,
+          "FirstName": "PromoterN2",
+          "LastName": "PromoterS2",
+          "TitlePrefix": "dr inż.",
+          "TitlePostfix": "",
+          "ExpectedNumberOfBachelorProposals": 10000,
+          "ExpectedNumberOfMasterProposals": 10000,
+          "ApplicationUser": {
+            "Email": "promoter2@gmail.com",
+            "PasswordHash": "zaq1@WSX"
+          }
+        }
+      ]
+    },
+    {
+      "Id": 3,
+      "Name": "Instytut Matematyki",
+      "Promoters": [
+        {
+          "Id": 3,
+          "FirstName": "PromoterN3",
+          "LastName": "PromoterS3",
+          "TitlePrefix": "dr inż.",
+          "TitlePostfix": "",
+          "ExpectedNumberOfBachelorProposals": 10000,
+          "ExpectedNumberOfMasterProposals": 10000,
+          "ApplicationUser": {
+            "Email": "promoter3@gmail.com",
+            "PasswordHash": "zaq1@WSX"
+          }
+        }
+      ]
+    },
+    {
+      "Id": 4,
+      "Name": "Instytut Technologii Materiałów",
+      "Promoters": [
+        {
+          "Id": 4,
+          "FirstName": "PromoterN4",
+          "LastName": "PromoterS4",
+          "TitlePrefix": "dr inż.",
+          "TitlePostfix": "",
+          "ExpectedNumberOfBachelorProposals": 10000,
+          "ExpectedNumberOfMasterProposals": 10000,
+          "ApplicationUser": {
+            "Email": "promoter4@gmail.com",
+            "PasswordHash": "zaq1@WSX"
+          }
+        }
+      ]
+    },
+    {
+      "Id": 5,
+      "Name": "Instytut Inżynierii Lądowej",
+      "Promoters": [
+        {
+          "Id": 5,
+          "FirstName": "PromoterN5",
+          "LastName": "PromoterS5",
+          "TitlePrefix": "dr inż.",
+          "TitlePostfix": "",
+          "ExpectedNumberOfBachelorProposals": 10000,
+          "ExpectedNumberOfMasterProposals": 10000,
+          "ApplicationUser": {
+            "Email": "promoter5@gmail.com",
+            "PasswordHash": "zaq1@WSX"
+          }
+        }
+      ]
+    },
+    {
+      "Id": 6,
+      "Name": "Instytut Inżynierii Środowiska",
+      "Promoters": [
+        {
+          "Id": 6,
+          "FirstName": "PromoterN6",
+          "LastName": "PromoterS6",
+          "TitlePrefix": "dr inż.",
+          "TitlePostfix": "",
+          "ExpectedNumberOfBachelorProposals": 10000,
+          "ExpectedNumberOfMasterProposals": 10000,
+          "ApplicationUser": {
+            "Email": "promoter6@gmail.com",
+            "PasswordHash": "zaq1@WSX"
+          }
+        }
+      ]
+    },
+    {
+      "Id": 7,
+      "Name": "Instytut Chemii i Elektrochemii Technicznej",
+      "Promoters": [
+        {
+          "Id": 7,
+          "FirstName": "PromoterN7",
+          "LastName": "PromoterS7",
+          "TitlePrefix": "dr inż.",
+          "TitlePostfix": "",
+          "ExpectedNumberOfBachelorProposals": 10000,
+          "ExpectedNumberOfMasterProposals": 10000,
+          "ApplicationUser": {
+            "Email": "promoter7@gmail.com",
+            "PasswordHash": "zaq1@WSX"
+          }
+        }
+      ]
+    },
+    {
+      "Id": 8,
+      "Name": "Instytut Elektrotechniki i Elektroniki Przemysłowej",
+      "Promoters": [
+        {
+          "Id": 8,
+          "FirstName": "PromoterN8",
+          "LastName": "PromoterS8",
+          "TitlePrefix": "dr inż.",
+          "TitlePostfix": "",
+          "ExpectedNumberOfBachelorProposals": 10000,
+          "ExpectedNumberOfMasterProposals": 10000,
+          "ApplicationUser": {
+            "Email": "promoter8@gmail.com",
+            "PasswordHash": "zaq1@WSX"
+          }
+        }
+      ]
+    },
+    {
+      "Id": 9,
+      "Name": "Instytut Mechaniki Stosowanej",
+      "Promoters": [
+        {
+          "Id": 9,
+          "FirstName": "PromoterN9",
+          "LastName": "PromoterS9",
+          "TitlePrefix": "dr inż.",
+          "TitlePostfix": "",
+          "ExpectedNumberOfBachelorProposals": 10000,
+          "ExpectedNumberOfMasterProposals": 10000,
+          "ApplicationUser": {
+            "Email": "promoter9@gmail.com",
+            "PasswordHash": "zaq1@WSX"
+          }
+        }
+      ]
+    },
+    {
+      "Id": 10,
+      "Name": "Instytut Technologii i Inżynierii Chemicznej",
+      "Promoters": [
+        {
+          "Id": 16,
+          "FirstName": "Katarzyna",
+          "LastName": "Adamska",
+          "TitlePrefix": "dr inż.",
+          "TitlePostfix": "",
+          "ExpectedNumberOfBachelorProposals": 1,
+          "ExpectedNumberOfMasterProposals": 1,
+          "ApplicationUser": {
+            "Email": "katarzyna.adamska@put.poznan.pl",
+            "PasswordHash": "qwerty1"
+          }
+        },
+        {
+          "Id": 17,
+          "FirstName": "Krzysztof",
+          "LastName": "Alejski",
+          "TitlePrefix": "dr hab. inż.",
+          "TitlePostfix": "prof. PP",
+          "ExpectedNumberOfBachelorProposals": 3,
+          "ExpectedNumberOfMasterProposals": 2,
+          "ApplicationUser": {
+            "Email": "krzysztof.alejski@put.poznan.pl",
+            "PasswordHash": "qwerty1"
+          }
+        },
+        {
+          "Id": 10,
+          "FirstName": "PromoterN10",
+          "LastName": "PromoterS10",
+          "TitlePrefix": "dr inż.",
+          "TitlePostfix": "",
+          "ExpectedNumberOfBachelorProposals": 10000,
+          "ExpectedNumberOfMasterProposals": 10000,
+          "ApplicationUser": {
+            "Email": "promoter10@gmail.com",
+            "PasswordHash": "zaq1@WSX"
+          }
+        }
+      ]
+    },
+    {
+      "Id": 11,
+      "Name": "Instytut Architektury i Planowania Przestrzennego",
+      "Promoters": []
+    }
+  ],
+  "Faculties": [
+    {
+      "Id": 1,
+      "Name": "Wydział Architektury",
+      "Courses": [
+        {
+          "Id": 1,
+          "Name": "Architektura",
+          "Proposals": []
+        },
+        {
+          "Id": 2,
+          "Name": "Architektura Wnętrz",
+          "Proposals": []
+        }
+      ]
+    },
+    {
+      "Id": 2,
+      "Name": "Wydział Budownictwa i Inżynierii Środowiska",
+      "Courses": [
+        {
+          "Id": 3,
+          "Name": "Budownictwo",
+          "Proposals": []
+        },
+        {
+          "Id": 4,
+          "Name": "Inżynieria Środowiska",
+          "Proposals": []
+        }
+      ]
+    },
+    {
+      "Id": 3,
+      "Name": "Wydział Budowy Maszyn i Zarządzania",
+      "Courses": [
+        {
+          "Id": 5,
+          "Name": "Inżynieria Biomedyczna",
+          "Proposals": []
+        },
+        {
+          "Id": 6,
+          "Name": "Inżynieria Materiałowa",
+          "Proposals": []
+        },
+        {
+          "Id": 7,
+          "Name": "Mechanika i Budowa Maszyn",
+          "Proposals": []
+        },
+        {
+          "Id": 8,
+          "Name": "Mechatronika",
+          "Proposals": []
+        },
+        {
+          "Id": 9,
+          "Name": "Zarządzanie i Inżynieria Produkcji",
+          "Proposals": []
+        }
+      ]
+    },
+    {
+      "Id": 4,
+      "Name": "Wydział Elektroniki i Telekomunikacji",
+      "Courses": [
+        {
+          "Id": 10,
+          "Name": "Elektronika i Telekomunikacja",
+          "Proposals": []
+        },
+        {
+          "Id": 11,
+          "Name": "Teleinformatyka",
+          "Proposals": []
+        }
+      ]
+    },
+    {
+      "Id": 5,
+      "Name": "Wydział Elektryczny",
+      "Courses": [
+        {
+          "Id": 12,
+          "Name": "Automatyka i Robotyka",
+          "Proposals": []
+        },
+        {
+          "Id": 13,
+          "Name": "Elektrotechnika",
+          "Proposals": []
+        },
+        {
+          "Id": 14,
+          "Name": "Energetyka",
+          "Proposals": []
+        },
+        {
+          "Id": 15,
+          "Name": "Matematyka w Technice",
+          "Proposals": []
+        }
+      ]
+    },
+    {
+      "Id": 6,
+      "Name": "Wydział Fizyki Technicznej",
+      "Courses": [
+        {
+          "Id": 16,
+          "Name": "Edukacja Techniczno-Informatyczna",
+          "Proposals": []
+        },
+        {
+          "Id": 17,
+          "Name": "Fizyka Techniczna",
+          "Proposals": []
+        }
+      ]
+    },
+    {
+      "Id": 7,
+      "Name": "Wydział Informatyki",
+      "Courses": [
+        {
+          "Id": 18,
+          "Name": "Informatyka",
+          "Proposals": [
+            {
+              "Id": 1,
+              "TopicPolish": "Capri 2 - system do zarządzania kartami tematów prac dyplomowych",
+              "TopicEnglish": "Capri 2 - system for managing diploma topic cards",
+              "Description": "Opis.....",
+              "OutputData": "Brak danych",
+              "Specialization": "-",
+              "Status": 0,
+              "Level": 0,
+              "Mode": 0,
+              "StudyProfile": 0,
+              "MaxNumberOfStudents": 4,
+              "PromoterId": 15
+            },
+            {
+              "Id": 2,
+              "TopicPolish": "Implementacja wybranych metod z rodziny Electre",
+              "TopicEnglish": "Implementation of chosen methods from Electre family",
+              "Description": "Celem pracy jest zaimplementowanie metod Electre 1s i Electre TRI jako aplikacji desktopowych.....",
+              "OutputData": "Brak danych",
+              "Specialization": "-",
+              "Status": 0,
+              "Level": 0,
+              "Mode": 0,
+              "StudyProfile": 0,
+              "MaxNumberOfStudents": 4,
+              "PromoterId": 11
+            },
+            {
+              "Id": 3,
+              "TopicPolish": "Implementacja metod wspomagania decyzji opartych na funkcji użyteczności (UTA, Assess)",
+              "TopicEnglish": "Implementation of decision support methods based on utility function (UTA, Assess)",
+              "Description": "Opis.....",
+              "OutputData": "Brak danych",
+              "Specialization": "-",
+              "Status": 0,
+              "Level": 0,
+              "Mode": 0,
+              "StudyProfile": 0,
+              "MaxNumberOfStudents": 4,
+              "PromoterId": 12
+            },
+            {
+              "Id": 4,
+              "TopicPolish": "Rozszerzenie platformy diviz o metody wielokryterialnego wspomagania decyzji oparte na różnych modelach preferencji",
+              "TopicEnglish": "Extension of diviz platform",
+              "Description": "Opis.....",
+              "OutputData": "Brak danych",
+              "Specialization": "-",
+              "Status": 0,
+              "Level": 0,
+              "Mode": 0,
+              "StudyProfile": 0,
+              "MaxNumberOfStudents": 4,
+              "PromoterId": 13
+            },
+            {
+              "Id": 5,
+              "TopicPolish": "Transfer stylu przy użyciu sieci neuronowej",
+              "TopicEnglish": "Style transfering using a neural network",
+              "Description": "Opis.....",
+              "OutputData": "Brak danych",
+              "Specialization": "-",
+              "Status": 0,
+              "Level": 0,
+              "Mode": 0,
+              "StudyProfile": 0,
+              "MaxNumberOfStudents": 4,
+              "PromoterId": 14
+            }
+          ]
+        },
+        {
+          "Id": 19,
+          "Name": "Bioinformatyka",
+          "Proposals": []
+        },
+        {
+          "Id": 20,
+          "Name": "Sztuczna Inteligencja / Artificial Intelligence",
+          "Proposals": []
+        }
+      ]
+    },
+    {
+      "Id": 8,
+      "Name": "Wydział Inżynierii Transportu",
+      "Courses": [
+        {
+          "Id": 21,
+          "Name": "Konstrukcja i Eksploatacja Środków Transportu",
+          "Proposals": []
+        },
+        {
+          "Id": 22,
+          "Name": "Transport",
+          "Proposals": []
+        },
+        {
+          "Id": 23,
+          "Name": "Lotnictwo i Kosmonautyka",
+          "Proposals": []
+        }
+      ]
+    },
+    {
+      "Id": 9,
+      "Name": "Wydział Inżynierii Zarządzania",
+      "Courses": [
+        {
+          "Id": 24,
+          "Name": "Logistyka",
+          "Proposals": []
+        },
+        {
+          "Id": 25,
+          "Name": "Inżynieria Zarządzania",
+          "Proposals": []
+        },
+        {
+          "Id": 26,
+          "Name": "Inżynieria Bezpieczeństwa",
+          "Proposals": []
+        }
+      ]
+    },
+    {
+      "Id": 10,
+      "Name": "Wydział Technologii Chemicznej",
+      "Courses": [
+        {
+          "Id": 27,
+          "Name": "Inżynieria Chemiczna i Procesowa",
+          "Proposals": [
+            {
+              "Id": 6,
+              "TopicPolish": "Wyznaczenie parametrów kolumny chromatograficznej za pomocą odwróconej chromatografii cieczowej",
+              "TopicEnglish": "No title",
+              "Description": "Praca będzie polegać na własnoręcznym upakowaniu kolumny chromatograficznej, doborze odpowiednich warunków pomiaru w celu wyznaczenia podstawowych parametrów dla niestandardowych kolumn do HPLC.",
+              "OutputData": "Brak danych",
+              "Specialization": "-",
+              "Status": 0,
+              "Level": 0,
+              "Mode": 0,
+              "StudyProfile": 0,
+              "MaxNumberOfStudents": 4,
+              "PromoterId": 16
+            },
+            {
+              "Id": 7,
+              "TopicPolish": "Analiza i projektowanie procesów wydzielania produktów otrzymywanych w procesie biokonwersji surowców odnawialnych",
+              "TopicEnglish": "No title",
+              "Description": "Brak opisu",
+              "OutputData": "Brak danych",
+              "Specialization": "-",
+              "Status": 0,
+              "Level": 1,
+              "Mode": 0,
+              "StudyProfile": 0,
+              "MaxNumberOfStudents": 4,
+              "PromoterId": 17
+            }
+          ]
+        },
+        {
+          "Id": 28,
+          "Name": "Technologia Chemiczna / Chemical Technology",
+          "Proposals": []
+        },
+        {
+          "Id": 29,
+          "Name": "Technologie Ochrony Środowiska",
+          "Proposals": []
+        },
+        {
+          "Id": 30,
+          "Name": "Inżynieria Farmaceutyczna",
+          "Proposals": []
+        }
+      ]
+    }
+  ]
+}
