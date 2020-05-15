@@ -102,9 +102,9 @@ namespace Capri.Web.Controllers
         }
 
         [HttpGet("filtered")]
-        public IActionResult GetFiltered(SieveModel sieveModel)
+        public async Task<IActionResult> GetFiltered(SieveModel sieveModel)
         {
-            var result = _proposalGetter.GetFiltered(sieveModel);
+            var result = await _proposalGetter.GetFiltered(sieveModel);
             if(result.Successful())
             {
                 return Ok(result.Body());

@@ -15,7 +15,7 @@ namespace Capri.Services.Proposals
         Task<IServiceResult<IEnumerable<ProposalViewModel>>> GetMyProposals();
         Task<IServiceResult<FileDescription>> GetDiplomaCard(int id);
         IServiceResult<IEnumerable<ProposalViewModel>> GetAll();
-        IServiceResult<IQueryable<ProposalViewModel>> GetFiltered(SieveModel sieveModel);
+        Task<IServiceResult<List<ProposalViewModel>>> GetFiltered(SieveModel sieveModel);
         IServiceResult<int> Count(SieveModel sieveModel);
     }
 }

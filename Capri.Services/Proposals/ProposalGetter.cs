@@ -155,14 +155,14 @@ namespace Capri.Services.Proposals
             return ServiceResult<IEnumerable<ProposalViewModel>>.Success(proposalViewModels);
         }
 
-        public IServiceResult<IQueryable<ProposalViewModel>> GetFiltered(SieveModel sieveModel)
+        public async Task<IServiceResult<List<ProposalViewModel>>> GetFiltered(SieveModel sieveModel)
         {
-            var proposals = _context.Proposals.AsQueryable();
+            var proposals = _context.Proposals.AsNoTracking();
 
-            var filtered = _sieveProcessor.Apply(sieveModel, proposals);
+            proposals = _sieveProcessor.Apply(sieveModel, proposals);
             
-            var proposalViewModels = filtered.Select(p => _mapper.Map<ProposalViewModel>(p));
-            return ServiceResult<IQueryable<ProposalViewModel>>.Success(proposalViewModels);
+            var proposalViewModels = await proposals.Select(p => _mapper.Map<ProposalViewModel>(p)).ToListAsync();
+            return ServiceResult<List<ProposalViewModel>>.Success(proposalViewModels);
         }
 
         public IServiceResult<int> Count(SieveModel sieveModel)

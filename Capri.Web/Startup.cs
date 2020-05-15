@@ -10,6 +10,9 @@ using Capri.Web.Configuration.Mapper;
 using Capri.Web.Configuration.Service;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.ResponseCompression;
+using System.IO.Compression;
 
 namespace Capri.Web
 {
@@ -43,7 +46,14 @@ namespace Capri.Web
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
             });
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.CacheProfiles.Add("Default30",
+                    new CacheProfile()
+                    {
+                        Duration = 30
+                    });
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDatabaseConfiguration(Configuration["DbConnectionString"]);
             services.AddIdentityConfiguration();
             services.AddSystemSettingsConfiguration(Configuration.GetSection("SystemSettings"));
@@ -52,6 +62,15 @@ namespace Capri.Web
             services.AddMapperConfiguration();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddServicesConfiguration();
+            services.AddResponseCompression();
+            //services.AddResponseCompression(options =>
+            //{
+            //    options.Providers.Add<GzipCompressionProvider>();
+            //});
+            services.Configure<GzipCompressionProviderOptions>(options =>
+            {
+                options.Level = CompressionLevel.Fastest;
+            });
             //services.AddHttpsRedirection(options => options.HttpsPort = 443);
         }
 
@@ -68,6 +87,8 @@ namespace Capri.Web
             }
 
             app.UseStaticFiles();
+            app.UseResponseCompression();
+            //app.UseCors();
             app.UseAuthentication();
             //app.UseHttpsRedirection();
             app.UseRequestLocalization();
