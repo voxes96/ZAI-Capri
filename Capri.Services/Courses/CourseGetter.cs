@@ -45,5 +45,18 @@ namespace Capri.Services.Courses
             var courseViewModels = courses.Select(c => _mapper.Map<CourseViewModel>(c));
             return ServiceResult<IEnumerable<CourseViewModel>>.Success(courseViewModels);
         }
+
+        public async Task<IServiceResult<bool>> CheckIfExist(int id)
+        {
+            var exist = await _context.Courses.AsNoTracking().AnyAsync(c => c.Id == id);
+
+            if (exist == false)
+            {
+                return ServiceResult<bool>.Error(
+                    $"Course with id {id} does not exist");
+            }
+
+            return ServiceResult<bool>.Success(exist);
+        }
     }
 }

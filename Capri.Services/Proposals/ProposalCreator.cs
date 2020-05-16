@@ -9,6 +9,7 @@ using Capri.Services.Students;
 using Capri.Services.Settings;
 using Capri.Services.Courses;
 using Capri.Web.ViewModels.Proposal;
+using System.Collections.Generic;
 
 namespace Capri.Services.Proposals
 {
@@ -49,7 +50,7 @@ namespace Capri.Services.Proposals
         public async Task<IServiceResult<ProposalViewModel>> Create(
             ProposalRegistration inputData)
         {
-            var courseResult = await _courseGetter.Get(inputData.CourseId);
+            var courseResult = await _courseGetter.CheckIfExist(inputData.CourseId);
             if(!courseResult.Successful())
             {
                 return ServiceResult<ProposalViewModel>.Error(courseResult.GetAggregatedErrors());
@@ -61,8 +62,7 @@ namespace Capri.Services.Proposals
                 return ServiceResult<ProposalViewModel>.Error(studentGroupValidatorResult.GetAggregatedErrors());
             }
 
-            var isStudentGroupValid = studentGroupValidatorResult.Body();
-            if(!isStudentGroupValid)
+            if(!studentGroupValidatorResult.Body())
             {
                 return ServiceResult<ProposalViewModel>.Error("The given students are not valid");
             }
@@ -75,18 +75,25 @@ namespace Capri.Services.Proposals
             }
 
             var currentUser = userResult.Body();
-            var promoter = 
-                await _context
-                .Promoters
-                .Include(p => p.Proposals)
-                .FirstOrDefaultAsync(p => p.UserId == currentUser.Id);
+            var tempPromoter = await _context.Promoters.AsNoTracking().Select(p => new TempPromoter
+            {
+                Id = p.Id,
+                ExpectedNumberOfBachelorProposals = p.ExpectedNumberOfBachelorProposals,
+                ExpectedNumberOfMasterProposals = p.ExpectedNumberOfMasterProposals,
+                Proposals = p.Proposals.Count()
+            }).FirstOrDefaultAsync();
+            //var promoter = 
+                //await _context
+                //.Promoters
+                //.Include(p => p.Proposals)
+                //.FirstOrDefaultAsync(p => p.UserId == currentUser.Id);
 
-            if(promoter == null)
+            if(tempPromoter == null)
             {
                 return ServiceResult<ProposalViewModel>.Error("The current user has no associated promoter");
             }
 
-            if(!HasPermissionToCreateProposal(promoter, inputData.Level))
+            if(!HasPermissionToCreateProposal(tempPromoter, inputData.Level))
             {
                 return ServiceResult<ProposalViewModel>.Error("You are not allowed to create this type of proposal");
             }
@@ -109,60 +116,60 @@ namespace Capri.Services.Proposals
             proposal.Students = students;
             proposal.Status = proposalStatus;
             SetStartDate(proposal);
-            proposal.Promoter = promoter;
-            promoter.Proposals.Add(proposal);
-            _context.Promoters.Update(promoter);
+            proposal.PromoterId = tempPromoter.Id;
+            //promoter.Proposals.Add(proposal);
+            //_context.Promoters.Update(promoter);
 
-            await _context.Proposals.AddAsync(proposal);
+            _context.Proposals.Add(proposal);
             await _context.SaveChangesAsync();
 
             var proposalViewModel = _mapper.Map<ProposalViewModel>(proposal);
             return ServiceResult<ProposalViewModel>.Success(proposalViewModel);
         }
 
-        private bool HasPermissionToCreateProposal(Promoter promoter, StudyLevel level)
-        {
-            switch(level)
-            {
-                case StudyLevel.Bachelor:
-                    return HasPermissionToCreateBachelorProposal(promoter);
-                case StudyLevel.Master:
-                    return HasPermissionToCreateMasterProposal(promoter);
-                default:
-                    return false;
-            }
-        }
+        //private bool HasPermissionToCreateProposal(Promoter promoter, StudyLevel level)
+        //{
+        //    switch(level)
+        //    {
+        //        case StudyLevel.Bachelor:
+        //            return HasPermissionToCreateBachelorProposal(promoter);
+        //        case StudyLevel.Master:
+        //            return HasPermissionToCreateMasterProposal(promoter);
+        //        default:
+        //            return false;
+        //    }
+        //}
 
-        private bool HasPermissionToCreateBachelorProposal(Promoter promoter)
-        {
-            var numOfSubmittedProposals = CountSubmittedProposals(promoter, StudyLevel.Bachelor);
-            if (numOfSubmittedProposals < promoter.ExpectedNumberOfBachelorProposals) 
-            {
-                return true;
-            }
-            return false;
-        }
+        //private bool HasPermissionToCreateBachelorProposal(Promoter promoter)
+        //{
+        //    var numOfSubmittedProposals = CountSubmittedProposals(promoter, StudyLevel.Bachelor);
+        //    if (numOfSubmittedProposals < promoter.ExpectedNumberOfBachelorProposals) 
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
-        private bool HasPermissionToCreateMasterProposal(Promoter promoter)
-        {
-            var numOfSubmittedProposals = CountSubmittedProposals(promoter, StudyLevel.Master);
-            if (numOfSubmittedProposals < promoter.ExpectedNumberOfMasterProposals) 
-            {
-                return true;
-            }
-            return false;
-        }
+        //private bool HasPermissionToCreateMasterProposal(Promoter promoter)
+        //{
+        //    var numOfSubmittedProposals = CountSubmittedProposals(promoter, StudyLevel.Master);
+        //    if (numOfSubmittedProposals < promoter.ExpectedNumberOfMasterProposals) 
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
-        private int CountSubmittedProposals(Promoter promoter, StudyLevel level)
-        {
-            if (promoter == null)
-            {
-                return 0;
-            }
-            return promoter
-                .Proposals
-                .Count(p => p.Level == level);
-        }
+        //private int CountSubmittedProposals(Promoter promoter, StudyLevel level)
+        //{
+        //    if (promoter == null)
+        //    {
+        //        return 0;
+        //    }
+        //    return promoter
+        //        .Proposals
+        //        .Count(p => p.Level == level);
+        //}
 
         private void SetStartDate(Proposal proposal)
         {
@@ -177,6 +184,45 @@ namespace Capri.Services.Proposals
                 var startingDate = _systemSettingsGetter.GetSystemSettings().MasterThesisStartDate;
                 proposal.StartingDate = startingDate;
             }
+        }
+
+        private class TempPromoter
+        {
+            public int Id { get; set; }
+            public int ExpectedNumberOfBachelorProposals { get; set; }
+            public int ExpectedNumberOfMasterProposals { get; set; }
+            public int Proposals { get; set; }
+        }
+
+        private bool HasPermissionToCreateProposal(TempPromoter promoter, StudyLevel level)
+        {
+            switch (level)
+            {
+                case StudyLevel.Bachelor:
+                    return HasPermissionToCreateBachelorProposal(promoter);
+                case StudyLevel.Master:
+                    return HasPermissionToCreateMasterProposal(promoter);
+                default:
+                    return false;
+            }
+        }
+
+        private bool HasPermissionToCreateBachelorProposal(TempPromoter promoter)
+        {
+            if (promoter.Proposals < promoter.ExpectedNumberOfBachelorProposals)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool HasPermissionToCreateMasterProposal(TempPromoter promoter)
+        {
+            if (promoter.Proposals < promoter.ExpectedNumberOfMasterProposals)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

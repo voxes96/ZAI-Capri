@@ -9,5 +9,6 @@ namespace Capri.Services.Courses
     {
         Task<IServiceResult<CourseViewModel>> Get(int id);
         IServiceResult<IEnumerable<CourseViewModel>> GetAll();
+        Task<IServiceResult<bool>> CheckIfExist(int id);
     }
 }
