@@ -45,5 +45,10 @@ namespace Capri.Services.Institutes
             var instituteViewModels = institutes.Select(i => _mapper.Map<InstituteViewModel>(i));
             return ServiceResult<IEnumerable<InstituteViewModel>>.Success(instituteViewModels);
         }
+
+        public async Task<bool> IsExists(int id)
+        {
+            return await _context.Institutes.AsNoTracking().AnyAsync(i => i.Id == id);
+        }
     }
 }

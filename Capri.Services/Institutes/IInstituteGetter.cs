@@ -9,5 +9,6 @@ namespace Capri.Services.Institutes
     {
         Task<IServiceResult<InstituteViewModel>> Get(int id);
         IServiceResult<IEnumerable<InstituteViewModel>> GetAll();
+        Task<bool> IsExists(int id);
     }
 }

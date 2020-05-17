@@ -33,15 +33,15 @@ namespace Capri.Services.Promoters
         public async Task<IServiceResult<PromoterViewModel>> Create(
             PromoterRegistration registration)
         {
-            var instituteResult = await _instituteGetter.Get(registration.InstituteId);
-            if(!instituteResult.Successful())
+            //var instituteResult = await _instituteGetter.IsExists(registration.InstituteId);
+            if(!(await _instituteGetter.IsExists(registration.InstituteId)))
             {
-                return ServiceResult<PromoterViewModel>.Error(instituteResult.GetAggregatedErrors());
+                return ServiceResult<PromoterViewModel>.Error($"Institute with id {registration.InstituteId} does not exist");
             }
 
             var userResult = 
                 await _userCreator
-                .CreateUser(
+                .CreateUserWithId(
                     registration.Email, 
                     registration.Password,
                     new RoleType[] {
@@ -50,16 +50,15 @@ namespace Capri.Services.Promoters
 
             if(!userResult.Successful())
             {
-                var errors = userResult.GetAggregatedErrors();
-                return ServiceResult<PromoterViewModel>.Error(errors);
+                return ServiceResult<PromoterViewModel>.Error(userResult.GetAggregatedErrors());
             }
 
-            var user = userResult.Body();
+            //var user = userResult.Body();
             var promoter = _mapper.Map<Promoter>(registration);
             //promoter.Id = Guid.NewGuid();
-            promoter.UserId = user.Id;
+            promoter.UserId = userResult.Body();
 
-            await _context.Promoters.AddAsync(promoter);
+            _context.Promoters.Add(promoter);
             await _context.SaveChangesAsync();
 
             var promoterViewModel = _mapper.Map<PromoterViewModel>(promoter);

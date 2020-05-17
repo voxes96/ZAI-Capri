@@ -9,5 +9,10 @@ namespace Capri.Services.Users
             string email, 
             string password, 
             RoleType[] roles);
+
+        Task<IServiceResult<int>> CreateUserWithId(
+            string email,
+            string password,
+            RoleType[] roles);
     }
 }

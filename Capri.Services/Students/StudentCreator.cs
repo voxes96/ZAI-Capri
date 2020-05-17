@@ -31,7 +31,7 @@ namespace Capri.Services.Students
         {
             if(registration.ProposalId != null)
             {
-                var proposal = await _context.Proposals.FirstOrDefaultAsync(p => p.Id == registration.ProposalId);
+                var proposal = await _context.Proposals.AsNoTracking().FirstOrDefaultAsync(p => p.Id == registration.ProposalId);
                 if(proposal == null)
                 {
                     return ServiceResult<StudentViewModel>.Error(
@@ -40,7 +40,7 @@ namespace Capri.Services.Students
                 }
             }
 
-            if(IsIndexNumberTaken(registration.IndexNumber))
+            if(await IsIndexNumberTaken(registration.IndexNumber))
             {
                 return ServiceResult<StudentViewModel>.Error(
                     $"Index number {registration.IndexNumber} is already taken"
@@ -49,7 +49,7 @@ namespace Capri.Services.Students
 
             var userResult = 
                 await _userCreator
-                .CreateUser(
+                .CreateUserWithId(
                     registration.Email, 
                     registration.Password,
                     new RoleType[] {
@@ -58,25 +58,24 @@ namespace Capri.Services.Students
 
             if(!userResult.Successful())
             {
-                var errors = userResult.GetAggregatedErrors();
-                return ServiceResult<StudentViewModel>.Error(errors);
+                return ServiceResult<StudentViewModel>.Error(userResult.GetAggregatedErrors());
             }
 
-            var user = userResult.Body();
+            //var user = userResult.Body();
             var student = _mapper.Map<Student>(registration);
             //student.Id = Guid.NewGuid();
-            student.UserId = user.Id;
+            student.UserId = userResult.Body();
 
-            await _context.Students.AddAsync(student);
+            _context.Students.Add(student);
             await _context.SaveChangesAsync();
 
             var studentViewModel = _mapper.Map<StudentViewModel>(student);
             return ServiceResult<StudentViewModel>.Success(studentViewModel);
         }
 
-        private bool IsIndexNumberTaken(int indexNumber)
+        private async Task<bool> IsIndexNumberTaken(int indexNumber)
         {
-            return _context.Students.Any(s => s.IndexNumber == indexNumber);
+            return await _context.Students.AsNoTracking().AnyAsync(s => s.IndexNumber == indexNumber);
         }
     }
 }

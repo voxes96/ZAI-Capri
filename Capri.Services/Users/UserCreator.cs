@@ -35,8 +35,8 @@ namespace Capri.Services.Users
             string password,
             RoleType[] roles)
         {
-            var emailExists = await EmailExists(email);
-            if(emailExists)
+
+            if(await EmailExists(email))
             {
                 return ServiceResult<User>.Error(
                     $"Email {email} is already taken");
@@ -45,8 +45,7 @@ namespace Capri.Services.Users
             var roleNames = roles.Select(r => GetRoleName(r));
             foreach(var roleName in roleNames)
             {
-                var roleExists = await _roleManager.RoleExistsAsync(roleName);
-                if(!roleExists)
+                if(!(await _roleManager.RoleExistsAsync(roleName)))
                 {
                     return ServiceResult<User>.Error(
                         $"Role {roleName} does not exist");
@@ -92,6 +91,54 @@ namespace Capri.Services.Users
         private string GetRoleName(RoleType role)
         {
             return Enum.GetName(typeof(RoleType), role);
+        }
+
+        public async Task<IServiceResult<int>> CreateUserWithId(
+            string email,
+            string password,
+            RoleType[] roles)
+        {
+
+            if (await EmailExists(email))
+            {
+                return ServiceResult<int>.Error(
+                    $"Email {email} is already taken");
+            }
+
+            var roleNames = roles.Select(r => GetRoleName(r));
+            foreach (var roleName in roleNames)
+            {
+                if (!(await _roleManager.RoleExistsAsync(roleName)))
+                {
+                    return ServiceResult<int>.Error(
+                        $"Role {roleName} does not exist");
+                }
+            }
+
+            var user = new User
+            {
+                //Id = Guid.NewGuid(),
+                UserName = email,
+                NormalizedUserName =
+                    new UpperInvariantLookupNormalizer()
+                        .Normalize(email)
+                        .ToUpperInvariant(),
+                Email = email,
+                NormalizedEmail =
+                    new UpperInvariantLookupNormalizer()
+                        .Normalize(email)
+                        .ToUpperInvariant(),
+                EmailConfirmed = true,
+                PasswordHash = new PasswordHasher<User>().HashPassword(null, password),
+            };
+
+            user.SecurityStamp = _tokenGenerator.GenerateTokenFor(user);
+
+            await _userManager.CreateAsync(user);
+            await _userManager.AddToRolesAsync(user, roleNames);
+            await _context.SaveChangesAsync();
+
+            return ServiceResult<int>.Success(user.Id);
         }
     }
 }
