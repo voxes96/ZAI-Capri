@@ -35,7 +35,7 @@ namespace Capri.Services.Files
 
         public IServiceResult<MemoryStream> CreateDiplomaCard(ProposalDocRecord record)
         {
-            string imagePath = Path.Combine(_hostingEnvironment.WebRootPath, "images", "putLogo.jpg");
+            string imagePath = Path.Combine(_hostingEnvironment.WebRootPath, "images", "putLogo.jpeg");
             using (MemoryStream mem = new MemoryStream())
             {
                 using (WordprocessingDocument wordDocument = WordprocessingDocument.Create(mem, WordprocessingDocumentType.Document))

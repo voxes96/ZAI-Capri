@@ -85,6 +85,7 @@ namespace Capri.Web.Controllers
             if (result.Successful())
             {
                 var fileDescription = result.Body();
+                //return File(fileDescription.Bytes, "application/zip", fileDescription.Name);
                 return File(fileDescription.Bytes, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileDescription.Name);
             }
             return BadRequest(result.GetAggregatedErrors());

@@ -12,7 +12,7 @@ namespace Capri.Services.DiplomaCard
     {
         public Drawing getPutLogo(MainDocumentPart mainPart, string imagePath)
         {
-            ImagePart imagePart = mainPart.AddImagePart(ImagePartType.Png);
+            ImagePart imagePart = mainPart.AddImagePart(ImagePartType.Jpeg);
             using (FileStream stream = new FileStream(imagePath, FileMode.Open))
             {
                 imagePart.FeedData(stream);

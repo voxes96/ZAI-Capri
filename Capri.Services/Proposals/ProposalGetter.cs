@@ -12,6 +12,9 @@ using Capri.Services.Files;
 using Capri.Services.Users;
 using Capri.Web.ViewModels.Proposal;
 using Capri.Web.ViewModels.Common;
+using System.IO.Compression;
+using System.IO;
+using Capri.Database.Entities;
 
 namespace Capri.Services.Proposals
 {
@@ -120,22 +123,64 @@ namespace Capri.Services.Proposals
 
         public async Task<IServiceResult<FileDescription>> GetDiplomaCard(int id)
         {
-            var proposal = await _context.Proposals
-                .Include(p => p.Students)
-                .Include(p => p.Course.Faculty)
-                .Include(p => p.Promoter.Institute)
-                .FirstOrDefaultAsync(p => p.Id == id);
+            //var proposal = await _context.Proposals
+            //    .Include(p => p.Students)
+            //    .Include(p => p.Course.Faculty)
+            //    .Include(p => p.Promoter.Institute)
+            //    .AsNoTracking()
+            //    .FirstOrDefaultAsync(p => p.Id == id);
+            var proposal = await _context.Proposals.AsNoTracking()
+                .Where(p => p.Id == id)
+                .Select(p => new ProposalDocRecord
+            {
+                Faculty = p.Course.Faculty.Name,
+                Course = p.Course.Name,
+                Specialization = p.Specialization,
+                StudyProfile = p.StudyProfile.GetDescription(),//Enum.GetName(typeof(StudyProfile), p.StudyProfile),
+                Mode = p.Mode.GetDescription(),//Enum.GetName(typeof(StudyMode), p.Mode),
+                Level = p.Level.GetDescription(),//Enum.GetName(typeof(StudyLevel), p.Level),
+                Students = p.Students,
+                TopicPolish = p.TopicPolish,
+                TopicEnglish = p.TopicEnglish,
+                OutputData = p.OutputData,
+                Description = p.Description,
+                StartingDate = p.StartingDate,
+                Promoter = p.Promoter.TitlePrefix + p.Promoter.FirstName + p.Promoter.LastName,
+                Institute = p.Promoter.Institute.Name
+            }).SingleOrDefaultAsync();
 
             if (proposal == null)
             {
                 return ServiceResult<FileDescription>.Error($"Proposal with id {id} does not exist.");
             }
 
-            var proposalDocRecord = _mapper.Map<ProposalDocRecord>(proposal);
+            //var proposalDocRecord = _mapper.Map<ProposalDocRecord>(proposal);
 
-            var result = _diplomaCardCreator.CreateDiplomaCard(proposalDocRecord);
+            //var result = _diplomaCardCreator.CreateDiplomaCard(proposalDocRecord);
+            var result = _diplomaCardCreator.CreateDiplomaCard(proposal);
 
-            var fileName = $"karta_tematu_pracy_{proposal.Id}.docx";
+            var fileName = $"karta_tematu_pracy_{id}.docx";
+            //var fileNameZip = $"karta_tematu_pracy_{proposal.Id}.zip";
+
+            //byte[] compressedBytes;
+            //using (var outStream = new MemoryStream())
+            //{
+            //    using (var archive = new ZipArchive(outStream, ZipArchiveMode.Create, true))
+            //    {
+            //        var fileInArchive = archive.CreateEntry(fileName, CompressionLevel.Optimal);
+            //        using (var entryStream = fileInArchive.Open())
+            //        using (var fileToCompressStream = new MemoryStream(result.Body().ToArray()))
+            //        {
+            //            fileToCompressStream.CopyTo(entryStream);
+            //        }
+            //    }
+            //    compressedBytes = outStream.ToArray();
+            //}
+            //var fileDescription = new FileDescription
+            //{
+            //    Name = fileNameZip,
+            //    Bytes = compressedBytes
+            //};
 
             var fileDescription = new FileDescription
             {
